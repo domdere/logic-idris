@@ -1,0 +1,10 @@
+package logicTypes
+
+modules =   Logic.Calculus
+        ,   Logic.Calculus.Classical
+        ,   Logic.Types.Conjunction
+        ,   Logic.Types.Disjunction
+        ,   Logic.Types.Implication
+        ,   Logic.Types.Not
+
+sourcedir = src
