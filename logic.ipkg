@@ -1,4 +1,4 @@
-package logicTypes
+package logic
 
 modules =   Logic.Calculus
         ,   Logic.Calculus.Classical
