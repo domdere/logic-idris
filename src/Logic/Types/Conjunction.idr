@@ -1,5 +1,7 @@
 module Conjunction
 
+%access public
+
 infixr 3 /\
 
 ||| A conjunction of propositions,

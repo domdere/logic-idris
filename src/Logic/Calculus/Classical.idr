@@ -9,14 +9,6 @@ import Logic.Types.Not
 
 %access public
 
-||| This is unprovable with Constructionist Logic,
-||| So its more of an axiom
-||| You can't use it to generate any proofs that will be used at runtime
-|||
-total
-tautology : (~) ((~) a) -> a
-tautology = believe_me
-
 ||| Can't prove this with Constructivist logic either,
 ||| we are give a function (a /\\ b) -> False but no
 ||| way to produce an a /\\b to make use of it

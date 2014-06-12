@@ -32,12 +32,17 @@ composition (Split (Implies fb) (Implies fc)) = Implies go
         go x = Split (fb x) (fc x)
 
 total
-cocomposition : ((a ==> c) /\ (b ==> c)) -> (a \/ b) ==> c
-cocomposition (Split (Implies fa) (Implies fb)) = Implies (go fa fb)
+cocomposition : ((a ==> c) /\ (b ==> c)) <=> ((a \/ b) ==> c)
+cocomposition = Iff (Implies cocompositionl) (Implies cocompositionr)
     where
-        go : (a -> c) -> (b -> c) -> (a \/ b) -> c
-        go f g (LeftP x)  = f x
-        go f g (RightP x) = g x
+        cocompositionl : ((a ==> c) /\ (b ==> c)) -> ((a \/ b) ==> c)
+        cocompositionl (Split (Implies fa) (Implies fb)) = Implies (go fa fb)
+            where
+                go : (a -> c) -> (b -> c) -> (a \/ b) -> c
+                go f g (LeftP x)  = f x
+                go f g (RightP x) = g x
+        cocompositionr : ((a \/ b) ==> c) -> ((a ==> c) /\ (b ==> c))
+        cocompositionr (Implies f) = Split (Implies (f . LeftP)) (Implies (f . RightP))
 
 total
 constructiveDilemma : ((a ==> c) /\ (b ==> d) /\ (a \/ b)) -> (c \/ d)
@@ -131,7 +136,35 @@ total
 exportation : (a /\ b) ==> c -> a ==> b ==> c
 exportation h = ?exportation_rhs
 
+total
+importation : (a ==> b ==> c) -> (a /\ b) ==> c
+importation h = ?importation_rhs
+
+total
+tautologyConjunction : a -> (a /\ a)
+tautologyConjunction x = Split x x
+
+total
+tautologyDisjunction : a -> (a \/ a)
+tautologyDisjunction = LeftP
+
 ---------- Proofs ----------
+
+importation_rhs = proof
+  intros
+  refine Implies
+  intro h1
+  induction h1
+  intro x
+  intro y
+  induction h
+  intro h2
+  let h3 = h2 x
+  induction h3
+  intro h4
+  refine h4
+  refine y
+
 
 exportation_rhs = proof
   intros
